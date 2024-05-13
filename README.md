@@ -1,4 +1,4 @@
-# EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER
+# EXPERIMENT--06-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER
 
 ### Aim:
 To generate a PWM wave at the timer pin output and  simuate it on  proteus using an virtual oscilloscope  
@@ -91,68 +91,136 @@ Step14. click on debug and simulate using simulation as shown below
  ![image](https://github.com/vasanthkumarch/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/36288975/b8efbfc2-f0c5-4106-8117-3a6e7ac87f6c)
 
 
- 
+ ### DEVELOPED BY : AFSAR JUMAIL S
+ ### REGISTER NO : 212222240004
 
   
 
 ## STM 32 CUBE PROGRAM :
-```
+```python
 #include "main.h"
 
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 
+/* USER CODE END Includes */
 
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
 
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+TIM_HandleTypeDef htim2;
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+```
+```
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_TIM2_Init(void);
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+```
+```
 int main(void)
 {
-  
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
- 
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
   SystemClock_Config();
 
-  
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM2_Init();
-  
+  /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start(&htim2);
   HAL_TIM_PWM_Init(&htim2);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
+
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
   while (1)
   {
-    
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
   }
-
+  /* USER CODE END 3 */
 }
-
-
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+```
+```
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
- 
+  /** Configure the main internal regulator output voltage
+  */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-  
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLM = 8;
-  RCC_OscInitStruct.PLL.PLLN = 72;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV6;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
   }
-  
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
@@ -160,22 +228,31 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
-
-
+```
+```
+/**
+  * @brief TIM2 Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_TIM2_Init(void)
 {
 
- 
+  /* USER CODE BEGIN TIM2_Init 0 */
+
+  /* USER CODE END TIM2_Init 0 */
 
   TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
 
- 
+  /* USER CODE BEGIN TIM2_Init 1 */
+
+  /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 47;
+  htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 1000;
+  htim2.Init.Period = 10000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -198,100 +275,121 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 800;
+  sConfigOC.Pulse = 2500;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
   {
     Error_Handler();
   }
- 
+  /* USER CODE BEGIN TIM2_Init 2 */
+
+  /* USER CODE END TIM2_Init 2 */
   HAL_TIM_MspPostInit(&htim2);
 
 }
-
-
+```
+```
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_GPIO_Init(void)
 {
 
-
+  /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
 }
 
+/* USER CODE BEGIN 4 */
 
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
 void Error_Handler(void)
 {
-  
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
   {
   }
-  
+  /* USER CODE END Error_Handler_Debug */
 }
 
 #ifdef  USE_FULL_ASSERT
-
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
 void assert_failed(uint8_t *file, uint32_t line)
 {
- 
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
 }
+#endif /* USE_FULL_ASSERT */
+
 ```
+## Output screen shots of proteus  :
 
 
+![322910903-bef6847b-fffe-4835-bac5-41fe4d58f01a](https://github.com/Senthamil1412/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/119120228/37a67c73-6831-4cd2-bd7f-fbf68acb389c)
 
+ 
  
  ## CIRCUIT DIAGRAM (EXPORT THE GRAPHICS TO PDF AND ADD THE SCREEN SHOT HERE): 
-## Output screen shots of proteus  :
-![274209949-f8d699c1-279d-40b6-884b-74fc661d8306](https://github.com/Senthamil1412/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/119120228/b9347b9e-8fd2-4f1f-b2e7-6ed2eed89865)
+![322910686-4299a3af-ae4e-463c-a47e-af143dfffc04](https://github.com/Senthamil1412/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/119120228/ec664d11-d2f6-438d-a3b8-22abf09e588e)
 
- 
- 
- ## Output screen shots of proteus  :
- 
+ ## Screen shots of Digital Oscilloscope:
+ ### PULSE AT 2500 :
+![322911738-ff8952d5-d73e-4440-885c-3cb216486022](https://github.com/Senthamil1412/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/119120228/d2856097-7f48-485b-ae99-cbb16d9de885)
+
+### PULSE AT 5000 :
+![322911906-87be1535-bb79-477a-b6b8-64952861afb0](https://github.com/Senthamil1412/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/119120228/4f7edc6e-2769-430e-b8a5-0aea3c8a7ebd)
+
+
+### PULSE AT 7500 :
+![322912113-54bd04cf-5636-4c45-a9f0-39f5f6b99c58](https://github.com/Senthamil1412/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/119120228/b7143c89-39a5-487f-8d0a-a260fc8b5094)
+
 
 ## DUTY CYCLE AND FREQUENCY CALCULATION 
-### FOR PULSE AT 500
-![274210058-53d0475b-6abf-4e83-8ec2-b5e6c6b77da0](https://github.com/Senthamil1412/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/119120228/74ab4006-da87-4a83-be3f-605915af0f13)
+### FOR PULSE AT 2500
 
-```
-TON = 2ms
-TOFF= 2ms
-TOTAL TIME = 4 
-FREQUENCY = 1/(TOTAL TIME)
-= 1/(410^-3)
-= 250Hz
-```
-### FOR PULSE AT 700
-![274210225-0661010a-2dba-4157-b3b9-2dc892b0ac11](https://github.com/Senthamil1412/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/119120228/f55e0861-100e-4b2e-909e-1847024d8930)
+##### TON = 3*50 = 150 * 10^-6  
+##### TOFF = 9*50 = 450 * 10^-6  
+##### TOTAL TIME = 600 
+##### FREQUENCY = 1/600 = 0.00166 = 1.6 KHZ 
+##### Duty Cycle % = (150/600)*100 = 25%
 
-```
-TON =  2.17ms
-TOFF= 0.93ms
-TOTAL TIME = 3.1 
-FREQUENCY = 1/(TOTAL TIME)
-= 1/(3.110^-3)
-= 322.58Hz
-```
+### FOR PULSE AT 5000
+
+##### TON = 6*50 = 300 * 10^-6    
+##### TOFF= 6*50 = 300 * 10^-6 
+##### TOTAL TIME = 600 
+##### FREQUENCY = 1/600 = 0.00166 = 1.6 KHZ
+##### Duty Cycle % = (300/600)*100 = 50%
 
 
-### FOR PULSE AT 900
-![274210342-f1a78070-d52a-4b2f-8c49-92c1659b1bb9](https://github.com/Senthamil1412/EXPERIMENT--07-SQUARE-WAVE-GENERATION-AT-THE-OUTPUT-PIN-USING-TIMER/assets/119120228/e4d30e89-420f-4df4-b49e-525826530a7f)
+### FOR PULSE AT 7500
 
-
-```
-TON = 2.88ms
-TOFF= 0.32ms
-TOTAL TIME = 3.2 
-FREQUENCY = 1/(TOTAL TIME)
-= 1/(3.210^-30
-= 312.5Hz
-```
+##### TON = 9*50 = 450 * 10^-6 
+##### TOFF= 3*50 = 150 * 10^-6 
+##### TOTAL TIME = 600  
+##### FREQUENCY = 1/600 = 0.00166 = 1.6 KHZ 
+##### Duty Cycle % = (450/600)*100 = 75%
 
 
 ## Result :
 A PWM Signal is generated using the following frequency and various duty cycles are simulated 
-
-
 
 
